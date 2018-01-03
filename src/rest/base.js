@@ -2,6 +2,8 @@ const config = require('../config/config');
 const http = require('../util/httpClient');
 const crypto = require('crypto');
 const moment = require('moment');
+const apis = require('../config/apis');
+const _ = require('lodash');
 //const CryptoJS = require('crypto-js');
 //const HmacSHA256 = require('crypto-js/hmac-sha256');
 
@@ -13,6 +15,7 @@ const DEFAULT_HEADERS = {
 class BaseAPI{
     constructor(option = config.huobi){
         this.option = option;
+        this.baseurl = apis.rest.baseurl;
     }
 
     get_auth() {
@@ -24,13 +27,13 @@ class BaseAPI{
         return ret;
     }
     
-    sign_sha(method, baseurl, path, data) {
+    sign_sha(method, path, data) {
         let pars = [];
         for (let item in data) {
             pars.push(item + "=" + encodeURIComponent(data[item]));
         }
         let p = pars.sort().join("&");
-        let meta = [method, baseurl, path, p].join('\n');
+        let meta = [method, this.baseurl, path, p].join('\n');
         // console.log(meta);
         let hash = crypto.createHmac('sha256', this.option.secretkey).update(meta).digest('hex');
         let Signature = encodeURIComponent(new Buffer(hash, 'hex').toString('base64'));
@@ -49,10 +52,13 @@ class BaseAPI{
         };
     }
     
-    call_api(method, baseurl, path, payload, body) {
+    call_api(method, path, param) {
         return new Promise((resolve, reject) => {
             let account_id = this.option.account_id_pro;
-            let url = `https://${baseurl}${path}?${payload}`;
+            let body = this.get_body();
+            _.assign(body, param);
+            let payload = this.sign_sha(method, path, body);
+            let url = `https://${this.baseurl}${path}?${payload}`;
             console.log(url);
             let headers = DEFAULT_HEADERS;
             headers.AuthData = this.get_auth();
@@ -64,7 +70,7 @@ class BaseAPI{
                 }).then(data => {
                     let json = JSON.parse(data);
                     if (json.status == 'ok') {
-                        console.log(json.data);
+                        //console.log(json.data);
                         resolve(json.data);
                     } else {
                         console.log('调用错误', json);
@@ -81,7 +87,7 @@ class BaseAPI{
                 }).then(data => {
                     let json = JSON.parse(data);
                     if (json.status == 'ok') {
-                        console.log(json.data);
+                        //console.log(json.data);
                         resolve(json.data);
                     } else {
                         console.log('调用错误', json);
