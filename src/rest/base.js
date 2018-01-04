@@ -52,7 +52,7 @@ class BaseAPI{
         };
     }
     
-    call_api(method, path, param) {
+    async call_api(method, path, param) {
         return new Promise((resolve, reject) => {
             let account_id = this.option.account_id_pro;
             let body = this.get_body();

@@ -1,8 +1,8 @@
 /*
  * @Author: jerry.huang 
  * @Date: 2018-01-03 22:19:17 
- * @Last Modified by: jerry.huang
- * @Last Modified time: 2018-01-03 23:36:59
+ * @Last Modified by: mikey.zhaopeng
+ * @Last Modified time: 2018-01-04 17:31:13
  */
 const BaseAPI = require('./base');
 const apis = require('../config/apis');
@@ -159,7 +159,7 @@ class MarketAPI extends BaseAPI{
      * @memberof MarketAPI
      */
     async getDetail(symbol){
-        let path = apis.rest.market.detail;
+        let path = apis.rest.market.detail.path;
         return await this.call_api('GET', path, {symbol:symbol});
     }
 }

@@ -3,7 +3,7 @@
 /*  file   : account
 /*  author : jerry.huang
 /*  date   : 2018-1-3 14:10:40
-/*  last   : 2018-1-3 18:30:16
+/*  last   : 2018-1-4 15:19:29
 */
 const BaseAPI = require('./base');
 const apis = require('../config/apis');
@@ -58,7 +58,7 @@ class AccountAPI extends BaseAPI{
      */
     async getBalance(account_id){
         let path = this.accountAPIs.balance.path.replace(':account_id', `${account_id}`);
-        return await this.call_api(method, path, {account_id:account_id});
+        return await this.call_api('GET', path, {account_id:account_id});
     }
 }
 

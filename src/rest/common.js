@@ -1,8 +1,8 @@
 /* 公共API
  * @Author: jerry.huang 
  * @Date: 2018-01-03 23:37:22 
- * @Last Modified by: jerry.huang
- * @Last Modified time: 2018-01-03 23:41:41
+ * @Last Modified by: mikey.zhaopeng
+ * @Last Modified time: 2018-01-04 15:18:44
  */
 
 const BaseAPI = require('./base');
@@ -75,3 +75,5 @@ class CommonAPI extends BaseAPI{
         return await this.call_api('GET', path, {});
     }
 }
+
+module.exports = CommonAPI;
