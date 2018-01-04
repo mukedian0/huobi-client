@@ -71,7 +71,7 @@ class BaseAPI{
                     let json = JSON.parse(data);
                     if (json.status == 'ok') {
                         //console.log(json.data);
-                        resolve(json.data);
+                        resolve(json.data|| json.tick);
                     } else {
                         console.log('调用错误', json);
                         reject(null);
@@ -88,7 +88,7 @@ class BaseAPI{
                     let json = JSON.parse(data);
                     if (json.status == 'ok') {
                         //console.log(json.data);
-                        resolve(json.data);
+                        resolve(json.data|| json.tick);
                     } else {
                         console.log('调用错误', json);
                         reject(null);

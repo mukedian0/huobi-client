@@ -7,14 +7,11 @@ const DepthTypes = Huobi.types.DepthTypes;
 const _ = require('lodash');
 
 let config = {
-    "access_key": "XXX",
-    "secretkey": "XXX",
+    "access_key": "XXXX",
+    "secretkey": "XXXX",
 }
 let huobi = new Huobi(config);
 (async()=>{
-    let merged1 = await huobi.marketAPI.getMerged(Symbols.USDT.XRP);
-    console.log(JSON.stringify(merged1, null, 4));
-    return;
     /*********************测试账户 API********************** */
     let accounts = await huobi.accountAPI.getAccounts();
     console.log(JSON.stringify(accounts, null, 4));
@@ -64,10 +61,13 @@ let huobi = new Huobi(config);
     console.log(JSON.stringify(depth, null, 4));
 
     let tradeInfo = await huobi.marketAPI.getTrade(Symbols.USDT.XRP);
+    console.log(JSON.stringify(tradeInfo, null, 4));
 
     let tradeInfos = await huobi.marketAPI.getTrades(Symbols.USDT.XRP);
+    console.log(JSON.stringify(tradeInfos, null, 4));
 
     let tradeDetail = await huobi.marketAPI.getDetail(Symbols.USDT.XRP);
+    console.log(JSON.stringify(tradeDetail, null, 4));
 
     /**********************测试 公共API***************** */
     let symbols = await huobi.commonAPI.getSymbols();

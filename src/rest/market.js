@@ -1,8 +1,8 @@
 /*
  * @Author: jerry.huang 
  * @Date: 2018-01-03 22:19:17 
- * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2018-01-04 17:31:13
+ * @Last Modified by: jerry.huang
+ * @Last Modified time: 2018-01-04 22:24:58
  */
 const BaseAPI = require('./base');
 const apis = require('../config/apis');
@@ -67,7 +67,8 @@ class MarketAPI extends BaseAPI{
      */
     async getMerged(symbol){
         let path = this.marketAPIs.merged.path;
-        return await this.call_api('GET', path, {symbol:symbol});
+        let tmp = await this.call_api('GET', path, {symbol:symbol});
+        return tmp;
     }
 
     /**
